@@ -1,0 +1,9 @@
+NAME=
+VERSION=
+IMAGE=originalgremlin/$(NAME)
+
+build:
+	docker build -t $(IMAGE) -t $(IMAGE):$(VERSION) .
+
+run:
+	docker run -it --name $(NAME) --rm $(IMAGE):$(VERSION)

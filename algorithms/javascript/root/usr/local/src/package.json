@@ -1,0 +1,15 @@
+{
+  "name": "portfolio",
+  "version": "1.0.0",
+  "homepage": "https://github.com/originalgremlin/portfolio",
+  "license": "UNLICENSED",
+  "author": "Barry Shapira <barry.shapira@gmail.com> (https://github.com/originalgremlin)",
+  "repository": "github:originalgremlin/portfolio",
+  "private": true,
+  "dependencies": {
+
+  },
+  "devDependencies": {
+
+  }
+}
