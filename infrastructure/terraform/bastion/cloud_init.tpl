@@ -1,0 +1,25 @@
+#cloud-config
+
+# Packages
+apt_reboot_if_required: false
+apt_update: false
+apt_upgrade: false
+
+# SSH
+disable_root: true
+
+# System
+locale: en_US.UTF-8
+manage_etc_hosts: true
+preserve_hostname: false
+timezone: UTC
+
+runcmd:
+  - systemctl start hostname
+  - systemctl enable mnt-efs.mount bastion_ssh
+  - systemctl restart mnt-efs.mount bastion_ssh sshd
+
+ssh_authorized_keys:
+    - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC8RkFx/azUZfQ/UL94xzkhl31tkWyvLH49AhpFcZBQTEHDCOrFIRSvetBS55R36DbiIanjraB1aSGwTl2YDzPIisgqkgledwL/OP5VTu1A5/SxbKLkD3CZG1wlZWag5mkSDDzgJQAXZLrVgYd1/uyjJ4n9hoGQhBYLRxBLMCvL7egii5WJG3E7VR6+83mdU+14scj3ND1+k80yOboAdyLIgoHjkYiKBXoBvgq9wJtjaZVKhjWPlfR8aXf1H8+NgoNib9L21ssKqtAUa9a+kaXR5sGQpwelWLbHswc/MhC7K8wHqkDE5PKMmH3v+UF3ZnSSxfHTO1DN1c51oB1V2hk1 barrys@Barrys-MacBook-Pro.local
+    - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDz4lgbJ8DTYcfjxyfopaJwLWtpHe2X/F9fzTdMiUEwER+ciyExTZVtO1xce+j6vXmAbDOimjDUpdYO4OpOS0lUxMV7WxODDalO5ylmWQYNM31o6WxAOixEJHU8k5yCl4tWx9DX2TQSevztaJuSTX2W5XCBrmnnkmyEj4K1INTgHPTsGvEoSQPb4NATqHwyR8O4ZmDe0Ge1BVfUJh+Bu1MoYEyQRl/6q2Dtltt/m3u+Y6dCuj/j2u5t+MnLB4QT+FKtLycat7TlYG+gQcYjwSf2esnOPmbh9ktarDU1iiJGFmu6rio5FNMPzrR046MMshRgdlG9ZFWgCGCi/pGZqnIT mattp@Matts-MacBook-Pro.local
+    - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDOsQko3GiuLWHViuby6lariSClAO7+J6JEu1vO8XYuSdcWYQ+B0hsozhMDS0vT8C2Xnwal0Umn7BnJ9sFYtKFCC7GSd0FFXufallUMMINDMjlnft2iqFQMH1cR4nfX084uHEH540qx4JBYzFuPKukSAr9WysJdCFgriQxRUlewDJVJl2FrevyeCPgVLL36pdrYauco0I5KFLnNKT8EJ3Egzr1A5xH34Wwz+cvWgASJ2shXUE/f302fjfAVNW6BVhgQZw0tbIswl9wcyeAHat7QGlg7oV/rNR9WSTbJv2GnZcEB9vTWNP6MZMLXpEeamU3wcxOf/d1S1JtFO9f4/7Iz danielcardoza@MacBook-Pro

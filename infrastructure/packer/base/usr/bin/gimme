@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+DISCOVERY_NAME=${1}
+if [[ -z "${DISCOVERY_NAME}" ]]; then
+    echo "Usage: ${0} discovery-name" 1>&2
+    exit 1
+else
+    aws ec2 describe-instances \
+        --filters \
+            Name=tag:DiscoveryName,Values=${DISCOVERY_NAME} \
+            Name=instance-state-name,Values=running \
+        | jq -r '.Reservations[].Instances[] | [(.Tags[] | select(.Key=="Name") | .Value), .InstanceId, .PrivateIpAddress] | join("\t")' \
+        | sort
+fi

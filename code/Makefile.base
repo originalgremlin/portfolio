@@ -1,6 +1,6 @@
 NAME=
 VERSION=
-IMAGE=originalgremlin/$(NAME)
+IMAGE=algorithms/$(NAME)
 
 build:
 	docker build -t $(IMAGE) -t $(IMAGE):$(VERSION) .

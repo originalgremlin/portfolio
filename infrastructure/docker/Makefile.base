@@ -1,0 +1,9 @@
+NAME=
+VERSION=
+IMAGE=infrastructure/$(NAME)
+
+build:
+	docker build -t $(IMAGE) -t $(IMAGE):$(VERSION) .
+
+run:
+	docker run -it --name $(NAME) --rm $(IMAGE):$(VERSION)

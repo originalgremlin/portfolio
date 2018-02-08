@@ -1,0 +1,8 @@
+Host bastion
+    StrictHostKeyChecking no
+    UserKnownHostsFile /dev/null
+    LogLevel QUIET
+    User admin
+
+Host *
+    ServerAliveInterval 300
