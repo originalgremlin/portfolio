@@ -1,20 +1,22 @@
-import sorting
-from tree import Tree
+import sys
+sys.path.append('../')
+
+from src.tree import Tree
 
 
-def binary(key, items):
-    items = sorting.quick(items)
+def binary(items, key):
+    items.sort()
     low, high = 0, len(items) - 1
-    while low < high:
+    while low <= high:
         mid = int(low + (high - low) / 2)
         if key == items[mid]:
             return True
         elif key < items[mid]:
-            low, high = low, mid
+            low, high = low, mid - 1
         else:
-            low, high = mid, high
+            low, high = mid + 1, high
     return False
 
 
-def tree(key, items):
+def tree(items, key):
     return Tree(items).contains(key)

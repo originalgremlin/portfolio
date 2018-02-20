@@ -1,7 +1,9 @@
-import random
-import statistics
-from heap import Heap
-from tree import Tree
+import sys
+sys.path.append('../')
+
+from src.heap import Heap
+from src.tree import Tree
+
 
 def bubble(items):
     n = len(items)
@@ -56,32 +58,34 @@ def merge(items):
     return rv
 
 
-# TODO: fix this method
 def quick(items, left=None, right=None):
     if left is None:
         left = 0
     if right is None:
         right = len(items) - 1
-    n = right - left + 1
-
-    # single-item list is already sorted
-    if n <= 1:
+    if right <= left:
         return items
 
-    # choose median-of-three as pivot value
-    pivot = statistics.median_low(random.sample(items[left:right + 1], min(n, 3)))
+    # choose pivot value
+    pivot = items[left]
 
-    # partition list on the pivot
+    # partition items around pivot
     i, j = left, right
-    while i < j:
-        while items[i] < pivot: i = i + 1
-        while items[j] > pivot: j = j - 1
-        if i >= j: break
-        items[i], items[j] = items[j], items[i]
-        i, j = i + 1, j - 1
+    while True:
+        while i < j and items[i] <= pivot:
+            i = i + 1
+        while j >= i and items[j] >= pivot:
+            j = j - 1
+        if i < j:
+            items[i], items[j] = items[j], items[i]
+        else:
+            break
 
-    # sort each partitioned section
-    quick(items, left, j)
+    # swap pivot into position
+    items[left], items[j] = items[j], items[left]
+
+    # recursively sort partitioned sections
+    quick(items, left, j - 1)
     quick(items, j + 1, right)
     return items
 
