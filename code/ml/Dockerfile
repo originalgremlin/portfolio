@@ -5,7 +5,7 @@ ENV PATH="${PATH}:/usr/local/anaconda/bin"
 # setup
 RUN set -x \
     && apt-get update \
-    && apt-get install -y bzip2 curl git less man unzip vim
+    && apt-get install -y bzip2 curl gcc git less man unzip vim
 
 # conda
 RUN set -x \
@@ -18,11 +18,16 @@ RUN set -x \
 # extras
 RUN set -x \
     && conda install pytorch-cpu spacy torchvision -c pytorch -y \
-    && pip install torchtext \
-    && python -m spacy.en.download
+    && pip install --upgrade pip \
+    && pip install kaggle torchtext \
+    && python -m spacy.en.download \
+    && pip uninstall -y pillow \
+    && CC="cc -mavx2" pip install -U --force-reinstall pillow-simd
 
 # cleanup
 RUN set -x \
+    && apt-get remove -y gcc \
+    && apt-get autoremove \
     && rm -rf /tmp/*
 
 COPY root /
