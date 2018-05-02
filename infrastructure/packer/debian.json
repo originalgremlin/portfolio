@@ -1,0 +1,102 @@
+{
+  "variables": {
+    "archive_name": "",
+    "aws_access_key_id": "",
+    "aws_secret_access_key": "",
+    "aws_region": "us-east-1",
+    "instance_type": "t2.large",
+    "source_ami": "ami-9d6c128a",
+    "ssh_username": "admin",
+    "subnet_id": "",
+    "vpc_id": "",
+    "admin_password": "",
+    "root_password": "",
+    "ami_name": "debian {{timestamp}}",
+    "modules": ""
+  },
+  "builders": [
+    {
+      "type": "amazon-ebs",
+      "communicator": "ssh",
+      "access_key": "{{user `aws_access_key`}}",
+      "secret_key": "{{user `aws_secret_key`}}",
+      "region": "{{user `aws_region`}}",
+      "source_ami": "{{user `source_ami`}}",
+      "instance_type": "{{user `instance_type`}}",
+      "ssh_username": "{{user `ssh_username`}}",
+      "ami_name": "{{user `ami_name`}}",
+      "vpc_id": "{{user `vpc_id`}}",
+      "subnet_id": "{{user `subnet_id`}}",
+      "shutdown_behavior": "terminate",
+      "ami_block_device_mappings": [{
+        "device_name": "/dev/xvda",
+        "delete_on_termination": true,
+        "encrypted": true
+      }],
+      "launch_block_device_mappings": [{
+        "device_name": "/dev/xvda",
+        "delete_on_termination": true,
+        "encrypted": false
+      }],
+      "tags": {
+        "Name": "{{user `ami_name`}}",
+        "Admin Password": "{{user `admin_password`}}",
+        "Root Password": "{{user `root_password`}}",
+        "Modules": "{{user `modules`}} "
+      }
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "file",
+      "source": "root",
+      "destination": "/tmp/root"
+    },
+    {
+      "type": "shell",
+      "inline": [
+        "echo admin:{{user `admin_password`}} | sudo chpasswd",
+        "echo root:{{user `root_password`}} | sudo chpasswd",
+        "echo {{user `admin_password`}} | sudo -S echo password now required for sudo",
+        "sudo cp -R /tmp/root/* /",
+        "sudo rm -r /tmp/root",
+        "sudo apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D",
+        "sudo apt-get -y update",
+        "sudo apt-get -y dist-upgrade",
+        "sudo apt-get -t jessie-backports -y install cloud-utils curl dnsutils docker-engine jq libpam-google-authenticator linux-image-4.9.0-0.bpo.2-amd64 lsof netcat nfs-common ntp openvpn python python-pip unzip vim",
+        "sudo pip install --upgrade awscli boto3 docker-compose",
+        "sudo curl -L -O https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-5.2.2-amd64.deb",
+        "sudo dpkg --force-confold --force-confdef -i filebeat-5.2.2-amd64.deb",
+        "sudo curl -L -O https://artifacts.elastic.co/downloads/beats/metricbeat/metricbeat-5.2.2-amd64.deb",
+        "sudo dpkg --force-confold --force-confdef -i metricbeat-5.2.2-amd64.deb",
+        "sudo rm -f /usr/sbin/policy-rc.d *.deb",
+        "sudo systemctl disable docker openvpn",
+        "sudo systemctl enable filebeat metricbeat",
+        "sudo usermod -aG docker {{user `ssh_username`}}",
+        "sudo -k",
+        "rm /home/admin/.ssh/authorized_keys"
+      ]
+    }
+  ],
+  "post-processors": [
+    [
+      {
+        "type": "manifest",
+        "keep_input_artifact": true
+      },
+      {
+        "type": "artifice",
+        "files": ["packer-manifest.json"]
+      },
+      {
+        "type": "shell-local",
+        "inline_shebang": "/bin/bash -e",
+        "inline": [
+          "ARTIFACT=($(jq -r .builds[-1].artifact_id packer-manifest.json | sed 's/:/ /g'))",
+          "/usr/bin/ami ${ARTIFACT[1]} ${ARTIFACT[0]}",
+          "rm packer-manifest.json"
+        ]
+      }
+    ]
+  ]
+}
