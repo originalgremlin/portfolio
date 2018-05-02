@@ -2,12 +2,13 @@
 
 Advanced data structures.
 
-### TODO
 - Bloom filter
-- Cuckoo filter
 - Hyperlog Log
 - LRU/MRU/LFU/MFU cache
+- Priority Queue
 
+### TODO
+- Testing
 
 # Java
 
@@ -21,6 +22,7 @@ Trees and Graphs.
 - Prim
 - Djikstra
 - Kruskal
+- Testing
 
 
 # JavaScript
@@ -40,8 +42,10 @@ Sorting and searching.
 
 ### Sorting:
 - Bubble
+- Heap
 - Insertion
 - Merge
+- Quick
 - Selection
 - Shell
 - Tree
@@ -49,7 +53,3 @@ Sorting and searching.
 ### Searching
 - Binary
 - Tree
-
-#### TODO
-- Heap
-- Quick
