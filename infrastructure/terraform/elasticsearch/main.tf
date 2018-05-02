@@ -33,7 +33,7 @@ resource aws_elasticsearch_domain "elasticsearch" {
       "Action": [
         "es:*"
       ],
-      "Resource": "arn:aws:es:us-east-1:798848508149:domain/elasticsearch/*"
+      "Resource": "arn:aws:es:us-east-1:EXAMPLE:domain/elasticsearch/*"
     }
   ]
 }

@@ -11,7 +11,7 @@ run:
 		-e "AWS_DEFAULT_REGION=us-east-1" \
 		-e "AWS_PROFILE=originalgremlin" \
 		-e "TERRAFORM_ROOT=/usr/local/data/terraform" \
-		-e "TF_VAR_hostname=redbooth.com" \
+		-e "TF_VAR_hostname=example.com" \
 		-e "TF_VAR_region=us-east-1" \
 		-e "TF_VAR_profile=originalgremlin" \
 		-v ~/.aws:/root/.aws \

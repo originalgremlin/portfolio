@@ -11,7 +11,7 @@
     "vpc_id": "",
     "admin_password": "",
     "root_password": "",
-    "ami_name": "amium-debian {{timestamp}}",
+    "ami_name": "debian {{timestamp}}",
     "modules": ""
   },
   "builders": [

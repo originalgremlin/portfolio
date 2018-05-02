@@ -10,6 +10,3 @@ build:
 		-var "admin_password=$(ADMIN_PASSWORD)" \
 		-var "root_password=$(ROOT_PASSWORD)" \
 		debian.json
-
-push:
-    echo TODO: bundle overlay dir and upload to S3 bucket
