@@ -1,0 +1,225 @@
+@font-face {
+    font-family: Gothambook;
+    src: url(../fonts/Gotham-Book.ttf);
+}
+
+@font-face {
+    font-family: Gothambld;
+    src: url(../fonts/Gotham-Bold.ttf);
+}
+
+root {
+    display: block;
+}
+
+/* layout elements */
+body {
+    background: #002830 url(../images/bg.jpg) top center no-repeat;
+    color: #ffffff;
+    font-family: Gothambook;
+    font-size: 1.0em;
+    margin: 10px;
+    padding: 0px;
+}
+
+div#tabButtons {
+    border: 1px solid #ffffff;
+    float: left;
+    height: 95%;
+    margin-right: 10px;
+    overflow-x: none;
+    overflow-y: auto;
+    padding: 10px;
+    width: 190px;
+}
+
+div#tabContent {
+    border: 1px solid #ffffff;
+    float: left;
+    height: 95%;
+    overflow: auto;
+    padding: 10px;
+    width: 755px;
+}
+
+/* table elements */
+td {
+    vertical-align: top;
+    padding: 5px;
+}
+
+td.formLabel {
+    padding-top: 0.7em;
+    text-align: right;
+    width: 180px;
+}
+
+td.error {
+    color: #cc0000;
+    padding-top: 0.7em;
+    width: 400px;
+}
+
+td.info {
+    color: #00cc00;
+    padding-top: 0.7em;
+}
+
+/* form elements */
+button {
+    -moz-border-radius:3px;
+    -webkit-border-radius:3px;
+    background: #4396b5 url();
+    border: 1px solid #114858;
+    color: #ffffff;
+    float: right;
+    font-size: 1.0em;
+    margin: 5px 0px 0 10px;
+    padding: 4px 10px 5px;
+    text-shadow: 1px 1px 2px #114858;
+}
+
+button:hover {
+    border: 1px solid #cccccc;
+    cursor: pointer;
+}
+
+input[type=text], input[type=password] {
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border: 1px solid #96b2bd;
+    background-color: #ffffff;
+    color: #333333;
+    display: block;
+    font-size: 1.4em;
+    padding: 5px;
+    height: 1.4em;
+    width: 400px;
+}
+
+input[type=file] {
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border: 1px solid #96b2bd;
+    background-color: #ffffff;
+    color: #333333;
+    display: block;
+    font-size: 1.0em;
+    height: 1.8em;
+    width: 400px;
+}
+
+input[type=hidden] {
+    border: 1px solid red;
+}
+
+select {
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border: 1px solid #96b2bd;
+    background-color: #ffffff;
+    color: #333333;
+    display: block;
+    font-size: 1.4em;
+    width: 400px;
+}
+
+textarea {
+    width: 400px;
+}
+
+/* tabs */
+.Tabset ol {
+    list-style: none;
+    margin: 0px;
+    padding: 0px;
+}
+
+.Tab {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+    padding: 5px 0px 5px 0px;
+    text-align: center;
+    width: 100%;
+}
+
+.Tab.selected {
+    background: url(../images/main_nav_bg.png) top no-repeat;
+}
+
+.Tab.mouseover {
+    background: url(../images/main_nav_bg.png) top no-repeat;
+    cursor: pointer;
+}
+
+/* position images */
+.positionImage {
+    width: 400px;
+    overflow: auto;
+}
+
+.PositionImageButtonSet {
+    margin: 0px;
+    padding: 0px;
+}
+
+.PositionImageButtonSet .Button {
+    display: inline;
+    margin: 0px;
+}
+
+.PositionImageButtonSet .Button img {
+    border: 3px solid #114858;
+    height: 117px;
+    padding: 0px;
+    margin: 0px 5px 10px 5px;
+    width: 117px;
+}
+
+.PositionImageButtonSet .Button.mouseover img {
+    border: 3px solid #cccccc;
+    cursor: pointer;
+}
+
+.PositionImageButtonSet .Button.selected img {
+    border: 3px solid #cccccc;
+}
+
+li.info {
+    padding-top: 0.4em;
+}
+
+/* miscellaneous */
+h2 {
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    background: #4396b5 url();
+    border: 1px solid #114858;
+    color: #ffffff;
+    font-family: Gothambld;
+    font-size: 1.4em;
+    height: 1.4em;
+    margin: 0px;
+    padding: 0px;
+    text-align: center;
+    text-shadow: 1px 1px 2px #114858;
+}
+
+h3 {
+    -moz-border-radius:3px;
+    -webkit-border-radius:3px;
+    background: #77b7e7 url();
+    border: 1px solid #4396b5;
+    color: #ffffff;
+    font-family: Gothambld;
+    font-size: 1.2em;
+    height: 1.2em;
+    margin: 40px 0px 10px 0px;
+    padding: 4px 10px 5px;
+    text-align: center;
+    text-shadow: 1px 1px 2px #114858;
+}
+
+h3.first {
+    margin: 0px 0px 10px 0px;
+}
