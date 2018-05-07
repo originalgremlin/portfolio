@@ -1,6 +1,7 @@
 FROM debian:9.3
 
-ENV PATH="${PATH}:/usr/local/anaconda/bin"
+ENV PATH="${PATH}:/usr/local/anaconda/bin" \
+    PYTHONPATH="/usr/local/lib:${PYTHONPATH}"
 
 # setup
 RUN set -x \
@@ -18,16 +19,17 @@ RUN set -x \
 # extras
 RUN set -x \
     && conda install pytorch-cpu spacy torchvision -c pytorch -y \
+    && conda install bcolz jupyter_contrib_nbextensions tqdm xgboost -c conda-forge -y \
     && pip install --upgrade pip \
     && pip install kaggle torchtext \
-    && python -m spacy.en.download \
+    && python -m spacy download en \
     && pip uninstall -y pillow \
     && CC="cc -mavx2" pip install -U --force-reinstall pillow-simd
 
 # cleanup
 RUN set -x \
     && apt-get remove -y gcc \
-    && apt-get autoremove \
+    && apt-get -y autoremove \
     && rm -rf /tmp/*
 
 COPY root /
