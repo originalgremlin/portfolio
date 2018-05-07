@@ -8,20 +8,25 @@ Advanced data structures.
 - Priority Queue
 
 ### TODO
+- Cuckoo filter
 - Testing
+
 
 # Java
 
 Trees and Graphs.
 
-### TODO
 - Breadth first
 - Depth first
-- Red-black tree
-- Patricia Trie
 - Prim
 - Djikstra
+- Priority Queue
+- Disjoint Set
+
+### TODO
 - Kruskal
+- Red-black tree
+- Patricia Trie
 - Testing
 
 
