@@ -59,4 +59,8 @@ public class DisjointSet<T> {
             size.put(xRoot, xSize + ySize);
         }
     }
+
+    public boolean joint(T x, T y) {
+        return find(x) == find(y);
+    }
 }

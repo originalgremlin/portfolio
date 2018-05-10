@@ -1,6 +1,8 @@
 package graph;
 
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
 
 public class Node {
     private Object data;
@@ -19,8 +21,12 @@ public class Node {
         return data;
     }
 
-    public HashMap<Node, Double> getEdges() {
-        return edges;
+    public HashSet<Edge> getEdges() {
+        HashSet<Edge> rv = new HashSet<>(edges.size() + 1, 1.0f);
+        for (Map.Entry<Node, Double> e : edges.entrySet()) {
+            rv.add(new Edge(this, e.getKey(), e.getValue()));
+        }
+        return rv;
     }
 
     public double getEdgeWeight(Node n) {
