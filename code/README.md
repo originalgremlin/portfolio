@@ -18,13 +18,13 @@ Trees and Graphs.
 
 - Breadth first
 - Depth first
-- Prim
 - Djikstra
+- Prim
+- Kruskal
 - Priority Queue
 - Disjoint Set
 
 ### TODO
-- Kruskal
 - Red-black tree
 - Patricia Trie
 - Testing

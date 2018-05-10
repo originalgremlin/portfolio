@@ -1,6 +1,8 @@
 package graph;
 
 import java.util.*;
+
+import util.DisjointSet;
 import util.PriorityQueue;
 
 public class Searcher {
@@ -14,13 +16,14 @@ public class Searcher {
     public LinkedList<Node> breadthFirst(Node from, Node to) {
         Deque<Node> open = new LinkedList<>();
         Map<Node, Node> closed = new HashMap<>();
-        Node current;
+        Node current, next;
 
         // search the graph, starting with "from" as root
         open.add(from);
         current = open.poll();
         while (current != null) {
-            for (Node next : current.getEdges().keySet()) {
+            for (Edge edge : current.getEdges()) {
+                next = edge.getTo();
                 if (!closed.containsKey(next)) {
                     open.addLast(next); // BFS: add to back
                     closed.put(next, current);
@@ -46,13 +49,14 @@ public class Searcher {
     public LinkedList<Node> depthFirst(Node from, Node to) {
         Deque<Node> open = new LinkedList<>();
         Map<Node, Node> closed = new HashMap<>();
-        Node current;
+        Node current, next;
 
         // search the graph, starting with "from" as root
         open.add(from);
         current = open.poll();
         while (current != null) {
-            for (Node next : current.getEdges().keySet()) {
+            for (Edge edge : current.getEdges()) {
+                next = edge.getTo();
                 if (!closed.containsKey(next)) {
                     open.addFirst(next); // DFS: add to front
                     closed.put(next, current);
@@ -95,9 +99,9 @@ public class Searcher {
         while (current != null && open.getPriority(current) < Double.POSITIVE_INFINITY) {
             Double priority_current = open.getPriority(current);
 
-            for (Map.Entry<Node, Double> next : current.getEdges().entrySet()) {
-                Node child = next.getKey();
-                Double weight = next.getValue();
+            for (Edge edge : current.getEdges()) {
+                Node child = edge.getTo();
+                double weight = edge.getWeight();
 
                 // Consider all unvisited neighbors
                 if (open.contains(child)) {
@@ -120,9 +124,9 @@ public class Searcher {
 
     // https://en.wikipedia.org/wiki/Prim%27s_algorithm
     public Graph prim() {
+        Graph mst = new Graph();
         PriorityQueue<Node> open = new PriorityQueue<Node>();
         Map<Node, Node> edges = new HashMap<>();
-        Graph mst = new Graph();
 
         // Associate with each vertex v of the graph a number C[v] (the cheapest cost of a connection to v)
         // and an edge E[v] (the edge providing that cheapest connection).
@@ -152,9 +156,9 @@ public class Searcher {
             // For each such edge, if w is still unvisited and vw has smaller weight than C[w], perform the following steps:
             // - Set C[w] to the cost of edge vw
             // - Set E[w] to point to edge vw
-            for (Map.Entry<Node, Double> edge : v.getEdges().entrySet()) {
-                w = edge.getKey();
-                weight = edge.getValue();
+            for (Edge edge : v.getEdges()) {
+                w = edge.getTo();
+                weight = edge.getWeight();
                 if (open.contains(w) && weight < open.getPriority(w)) {
                     open.updatePriority(w, weight);
                     edges.put(v, w);
@@ -163,6 +167,25 @@ public class Searcher {
         }
 
         // Return the MST.
+        return mst;
+    }
+
+    // https://en.wikipedia.org/wiki/Kruskal%27s_algorithm
+    public Graph kruskal() {
+        Graph mst = new Graph(graph.getNodes());
+        DisjointSet<Node> nodes = new DisjointSet<>(graph.getNodes());
+        Edge[] edges = graph.getEdges().toArray(new Edge[0]);
+        Arrays.sort(edges);
+
+        for (Edge e : edges) {
+            Node from = e.getFrom();
+            Node to = e.getTo();
+            double weight = e.getWeight();
+            if (!nodes.joint(from, to)) {
+                mst.addEdge(from, to, weight);
+                nodes.union(from, to);
+            }
+        }
         return mst;
     }
 }
