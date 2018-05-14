@@ -1,6 +1,5 @@
 const express = require('express');
 const app = express();
-const backends = ['redis'];
 
 // middleware
 app.use((req, res, next) => {
@@ -9,13 +8,8 @@ app.use((req, res, next) => {
 });
 
 // routes
-app.get('/', (req, res, next) => {
-    res.send('Welcome to my homepage.');
-});
-
-backends.forEach(backend => {
-    app.use(`/${backend}`, require(`./backends/${backend}`));
-})
+app.use('/', require('./backends/default'));
+app.use('/redis', require('./backends/redis'));
 
 // error handling
 app.use((err, req, res, next) => {
