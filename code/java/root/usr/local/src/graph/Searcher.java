@@ -80,7 +80,7 @@ public class Searcher {
 
     // https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm
     public Map<Node, Node> dijkstra(Node from) {
-        PriorityQueue<Node> open = new PriorityQueue<Node>();
+        PriorityQueue<Node> open = new PriorityQueue<>();
         Map<Node, Node> parents = new HashMap<>();
 
         // Mark all nodes unvisited. Create a set of all the unvisited nodes called the unvisited set.
